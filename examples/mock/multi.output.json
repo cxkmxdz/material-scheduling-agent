@@ -1,0 +1,146 @@
+{
+  "run_id": "run-7dad1dfabe3c4da3a55c3a2ed1ee77c9",
+  "mode": "mock",
+  "model": "offline-script-v1",
+  "request_id": "req-multi",
+  "task_status": "needs_input",
+  "stop_reason": "model_finished",
+  "steps": 13,
+  "tool_calls": 12,
+  "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\examples\\mock\\multi.trace.jsonl",
+  "items": [
+    {
+      "material_id": "M01",
+      "review_status": "passed",
+      "risk_reasons": [],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-multi",
+        "material_ids": [
+          "M01",
+          "M02",
+          "M03",
+          "M04"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": "2026-11-05T18:00:00+08:00",
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "saved",
+      "draft_id": "draft-3879add837b9499dbd326f49e6d16b78",
+      "task_status": "completed",
+      "unfinished_reason": null,
+      "tool_errors": []
+    },
+    {
+      "material_id": "M02",
+      "review_status": "needs_information",
+      "risk_reasons": [],
+      "missing_fields": [
+        "asset_url",
+        "rights_owner"
+      ],
+      "original_requirement": {
+        "request_id": "req-multi",
+        "material_ids": [
+          "M01",
+          "M02",
+          "M03",
+          "M04"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "task_status": "needs_input",
+      "unfinished_reason": "Provide missing fields: asset_url, rights_owner",
+      "tool_errors": []
+    },
+    {
+      "material_id": "M03",
+      "review_status": "blocked",
+      "risk_reasons": [
+        {
+          "rule_id": "DEMO-R001",
+          "severity": "block",
+          "reason": "演示规则：绝对化医疗承诺需阻断"
+        }
+      ],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-multi",
+        "material_ids": [
+          "M01",
+          "M02",
+          "M03",
+          "M04"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "task_status": "blocked",
+      "unfinished_reason": "Blocking demo rules must be resolved",
+      "tool_errors": []
+    },
+    {
+      "material_id": "M04",
+      "review_status": "passed",
+      "risk_reasons": [],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-multi",
+        "material_ids": [
+          "M01",
+          "M02",
+          "M03",
+          "M04"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": "2026-11-05T19:00:00+08:00",
+      "confirmation_status": "pending_confirmation",
+      "pending_confirmations": [
+        "Confirm change from 2026-11-05T18:00:00+08:00 to 2026-11-05T19:00:00+08:00"
+      ],
+      "save_status": "saved",
+      "draft_id": "draft-bba0a18dba074fd980203fbee4b8b476",
+      "task_status": "completed",
+      "unfinished_reason": null,
+      "tool_errors": []
+    }
+  ],
+  "errors": [],
+  "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+}

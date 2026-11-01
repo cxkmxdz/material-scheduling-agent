@@ -1,0 +1,287 @@
+{
+  "timestamp": "2026-11-01T14:55:38.691088+00:00",
+  "mode": "mock",
+  "checks_passed": true,
+  "commands": [
+    {
+      "operation": "normal",
+      "arguments": [
+        "run",
+        "--input",
+        "examples/inputs/normal.json",
+        "--db",
+        "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\normal.sqlite"
+      ],
+      "exit_code": 0,
+      "result": {
+        "run_id": "run-ae7583c73ea3448fb6ceaf664cb047ba",
+        "mode": "mock",
+        "model": "offline-script-v1",
+        "request_id": "req-001",
+        "task_status": "completed",
+        "stop_reason": "model_finished",
+        "steps": 5,
+        "tool_calls": 4,
+        "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\traces\\0c1ee2ed59b94fdaab93b694fa01af55.jsonl",
+        "items": [
+          {
+            "material_id": "M01",
+            "review_status": "passed",
+            "risk_reasons": [],
+            "missing_fields": [],
+            "original_requirement": {
+              "request_id": "req-001",
+              "material_ids": [
+                "M01"
+              ],
+              "channel": "demo",
+              "requested_at": "2026-11-05T18:00:00+08:00",
+              "time_requirement": "hard",
+              "search_window": {
+                "start": "2026-11-05T18:00:00+08:00",
+                "end": "2026-11-05T21:00:00+08:00"
+              }
+            },
+            "proposed_at": "2026-11-05T18:00:00+08:00",
+            "confirmation_status": "not_required",
+            "pending_confirmations": [],
+            "save_status": "saved",
+            "draft_id": "draft-fdafc9f6f6d749679c70a1dd0f764c4b",
+            "task_status": "completed",
+            "unfinished_reason": null,
+            "tool_errors": []
+          }
+        ],
+        "errors": [],
+        "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+      }
+    },
+    {
+      "operation": "init",
+      "arguments": [
+        "init",
+        "--db",
+        "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\occupied.sqlite"
+      ],
+      "exit_code": 0,
+      "result": {
+        "ok": true,
+        "db": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\occupied.sqlite",
+        "note": "Seeded demo confirmed schedules; existing drafts preserved"
+      }
+    },
+    {
+      "operation": "conflict",
+      "arguments": [
+        "run",
+        "--input",
+        "examples/inputs/normal.json",
+        "--db",
+        "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\occupied.sqlite"
+      ],
+      "exit_code": 0,
+      "result": {
+        "run_id": "run-3808537e8aa641c8b94c1fad83552d55",
+        "mode": "mock",
+        "model": "offline-script-v1",
+        "request_id": "req-001",
+        "task_status": "completed",
+        "stop_reason": "model_finished",
+        "steps": 6,
+        "tool_calls": 5,
+        "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\traces\\e2ecb5fb27a241658d8dcdd378108ba3.jsonl",
+        "items": [
+          {
+            "material_id": "M01",
+            "review_status": "passed",
+            "risk_reasons": [],
+            "missing_fields": [],
+            "original_requirement": {
+              "request_id": "req-001",
+              "material_ids": [
+                "M01"
+              ],
+              "channel": "demo",
+              "requested_at": "2026-11-05T18:00:00+08:00",
+              "time_requirement": "hard",
+              "search_window": {
+                "start": "2026-11-05T18:00:00+08:00",
+                "end": "2026-11-05T21:00:00+08:00"
+              }
+            },
+            "proposed_at": "2026-11-05T19:00:00+08:00",
+            "confirmation_status": "pending_confirmation",
+            "pending_confirmations": [
+              "Confirm change from 2026-11-05T18:00:00+08:00 to 2026-11-05T19:00:00+08:00"
+            ],
+            "save_status": "saved",
+            "draft_id": "draft-4bd9043d8a4b42dd9d0733e176799843",
+            "task_status": "completed",
+            "unfinished_reason": null,
+            "tool_errors": []
+          }
+        ],
+        "errors": [],
+        "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+      }
+    },
+    {
+      "operation": "inspect",
+      "arguments": [
+        "inspect",
+        "--db",
+        "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\occupied.sqlite"
+      ],
+      "exit_code": 0,
+      "result": [
+        {
+          "channel": "demo",
+          "confirmation_status": "pending_confirmation",
+          "draft_id": "draft-4bd9043d8a4b42dd9d0733e176799843",
+          "end": "2026-11-05T20:00:00+08:00",
+          "material_id": "M01",
+          "original_requirement": {
+            "channel": "demo",
+            "material_ids": [
+              "M01"
+            ],
+            "request_id": "req-001",
+            "requested_at": "2026-11-05T18:00:00+08:00",
+            "search_window": {
+              "end": "2026-11-05T21:00:00+08:00",
+              "start": "2026-11-05T18:00:00+08:00"
+            },
+            "time_requirement": "hard"
+          },
+          "proposed_at": "2026-11-05T19:00:00+08:00",
+          "published": false,
+          "record_type": "draft",
+          "request_id": "req-001",
+          "reserves_slot": false
+        }
+      ]
+    },
+    {
+      "operation": "missing",
+      "arguments": [
+        "run",
+        "--input",
+        "examples/inputs/missing.json",
+        "--db",
+        "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\missing.sqlite"
+      ],
+      "exit_code": 2,
+      "result": {
+        "run_id": "run-54628bf2a75647599a22b68067453653",
+        "mode": "mock",
+        "model": "offline-script-v1",
+        "request_id": "req-missing",
+        "task_status": "needs_input",
+        "stop_reason": "model_finished",
+        "steps": 2,
+        "tool_calls": 1,
+        "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\traces\\5926c015dd4a42deb7be5970e0770607.jsonl",
+        "items": [
+          {
+            "material_id": "M02",
+            "review_status": "needs_information",
+            "risk_reasons": [],
+            "missing_fields": [
+              "asset_url",
+              "rights_owner"
+            ],
+            "original_requirement": {
+              "request_id": "req-missing",
+              "material_ids": [
+                "M02"
+              ],
+              "channel": "demo",
+              "requested_at": "2026-11-05T18:00:00+08:00",
+              "time_requirement": "hard",
+              "search_window": {
+                "start": "2026-11-05T18:00:00+08:00",
+                "end": "2026-11-05T21:00:00+08:00"
+              }
+            },
+            "proposed_at": null,
+            "confirmation_status": "not_required",
+            "pending_confirmations": [],
+            "save_status": "not_attempted",
+            "draft_id": null,
+            "task_status": "needs_input",
+            "unfinished_reason": "Provide missing fields: asset_url, rights_owner",
+            "tool_errors": []
+          }
+        ],
+        "errors": [],
+        "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+      }
+    },
+    {
+      "operation": "save_failure",
+      "arguments": [
+        "run",
+        "--input",
+        "examples/inputs/normal.json",
+        "--db",
+        "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\cli-smoke-20261101-225535-796855\\failure.sqlite",
+        "--fail-saves",
+        "2"
+      ],
+      "exit_code": 2,
+      "result": {
+        "run_id": "run-5afba587407b4fc984212f0c45d2deef",
+        "mode": "mock",
+        "model": "offline-script-v1",
+        "request_id": "req-001",
+        "task_status": "failed",
+        "stop_reason": "model_finished",
+        "steps": 6,
+        "tool_calls": 5,
+        "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\runtime\\traces\\2375d63ace2a4c80bce9ae4d26a06581.jsonl",
+        "items": [
+          {
+            "material_id": "M01",
+            "review_status": "passed",
+            "risk_reasons": [],
+            "missing_fields": [],
+            "original_requirement": {
+              "request_id": "req-001",
+              "material_ids": [
+                "M01"
+              ],
+              "channel": "demo",
+              "requested_at": "2026-11-05T18:00:00+08:00",
+              "time_requirement": "hard",
+              "search_window": {
+                "start": "2026-11-05T18:00:00+08:00",
+                "end": "2026-11-05T21:00:00+08:00"
+              }
+            },
+            "proposed_at": "2026-11-05T18:00:00+08:00",
+            "confirmation_status": "not_required",
+            "pending_confirmations": [],
+            "save_status": "failed",
+            "draft_id": null,
+            "task_status": "failed",
+            "unfinished_reason": "No durable draft after save attempts",
+            "tool_errors": [
+              {
+                "tool": "save_draft",
+                "code": "SAVE_FAILED",
+                "summary": "SQLite save failed and transaction rolled back"
+              },
+              {
+                "tool": "save_draft",
+                "code": "SAVE_FAILED",
+                "summary": "SQLite save failed and transaction rolled back"
+              }
+            ]
+          }
+        ],
+        "errors": [],
+        "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+      }
+    }
+  ]
+}

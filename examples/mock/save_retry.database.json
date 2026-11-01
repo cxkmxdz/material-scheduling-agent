@@ -1,0 +1,22 @@
+{
+  "requests": [
+    {
+      "request_id": "req-001",
+      "digest": "ffd6ca864d5dbab25d7837617bbd46e0c9670418b03b825b245b40515fb385a4",
+      "payload": "{\"channel\":\"demo\",\"material_ids\":[\"M01\"],\"request_id\":\"req-001\",\"requested_at\":\"2026-11-05T10:00:00+00:00\",\"search_window\":{\"end\":\"2026-11-05T13:00:00+00:00\",\"start\":\"2026-11-05T10:00:00+00:00\"},\"time_requirement\":\"hard\"}"
+    }
+  ],
+  "schedules": [],
+  "drafts": [
+    {
+      "draft_id": "draft-6e5a9b1fa3af40779450453a2af4d601",
+      "request_id": "req-001",
+      "material_id": "M01",
+      "channel": "demo",
+      "start": "2026-11-05T10:00:00+00:00",
+      "end": "2026-11-05T11:00:00+00:00",
+      "reserves_slot": 1,
+      "payload": "{\"channel\":\"demo\",\"confirmation_status\":\"not_required\",\"draft_id\":\"draft-6e5a9b1fa3af40779450453a2af4d601\",\"end\":\"2026-11-05T19:00:00+08:00\",\"material_id\":\"M01\",\"original_requirement\":{\"channel\":\"demo\",\"material_ids\":[\"M01\"],\"request_id\":\"req-001\",\"requested_at\":\"2026-11-05T18:00:00+08:00\",\"search_window\":{\"end\":\"2026-11-05T21:00:00+08:00\",\"start\":\"2026-11-05T18:00:00+08:00\"},\"time_requirement\":\"hard\"},\"proposed_at\":\"2026-11-05T18:00:00+08:00\",\"published\":false,\"record_type\":\"draft\",\"request_id\":\"req-001\",\"reserves_slot\":true}"
+    }
+  ]
+}

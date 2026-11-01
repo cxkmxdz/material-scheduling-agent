@@ -1,0 +1,5 @@
+[
+  {"rule_id":"DEMO-R001","field":"title","operator":"contains","value":"绝对治愈","severity":"block","reason":"演示规则：绝对化医疗承诺需阻断"},
+  {"rule_id":"DEMO-R002","field":"copyright_cleared","operator":"equals","value":false,"severity":"block","reason":"演示规则：版权未授权需阻断"},
+  {"rule_id":"DEMO-R003","field":"title","operator":"contains","value":"限时","severity":"warning","reason":"演示规则：限时表述需人工关注，当前不阻断"}
+]

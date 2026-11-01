@@ -1,0 +1,9 @@
+{
+  "project_created_at": "2026-11-01T14:46:11.906843+00:00",
+  "delivery_verified_at": "2026-11-01T14:55:57.178692+00:00",
+  "measured_duration_seconds": 585.272,
+  "measurement_scope": "Project directory creation through dependency installation, code, tests, examples, documents and CLI checks. Excludes earlier plan work and final Git packaging; not candidate total time.",
+  "source_document_sha256": "0211456f29ed570c501a8c40c113f197fe96840bf28c171929b38fcb6e1ea3f6",
+  "real_model_validation": "not_run_missing_configuration",
+  "remote_push_performed": false
+}

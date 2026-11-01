@@ -1,0 +1,18 @@
+{
+  "requests": [
+    {
+      "request_id": "req-no-slots",
+      "digest": "fc267fd39925738aec8574c73739a994a63b414e32cdf48ca228c4b59da30fda",
+      "payload": "{\"channel\":\"demo\",\"material_ids\":[\"M01\"],\"request_id\":\"req-no-slots\",\"requested_at\":\"2026-11-05T10:00:00+00:00\",\"search_window\":{\"end\":\"2026-11-05T11:00:00+00:00\",\"start\":\"2026-11-05T10:00:00+00:00\"},\"time_requirement\":\"hard\"}"
+    }
+  ],
+  "schedules": [
+    {
+      "schedule_id": "demo-existing-1800",
+      "channel": "demo",
+      "start": "2026-11-05T10:00:00+00:00",
+      "end": "2026-11-05T11:00:00+00:00"
+    }
+  ],
+  "drafts": []
+}

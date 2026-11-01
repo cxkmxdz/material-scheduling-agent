@@ -1,0 +1,44 @@
+{
+  "run_id": "run-0e9f3c9323fb45a5b87fc290e407f9ff",
+  "mode": "mock",
+  "model": "offline-script-v1",
+  "request_id": "req-001",
+  "task_status": "completed",
+  "stop_reason": "model_finished",
+  "steps": 6,
+  "tool_calls": 5,
+  "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\examples\\mock\\conflict.trace.jsonl",
+  "items": [
+    {
+      "material_id": "M01",
+      "review_status": "passed",
+      "risk_reasons": [],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-001",
+        "material_ids": [
+          "M01"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": "2026-11-05T19:00:00+08:00",
+      "confirmation_status": "pending_confirmation",
+      "pending_confirmations": [
+        "Confirm change from 2026-11-05T18:00:00+08:00 to 2026-11-05T19:00:00+08:00"
+      ],
+      "save_status": "saved",
+      "draft_id": "draft-5f6e01822f144a71bd4a64cf14f42d27",
+      "task_status": "completed",
+      "unfinished_reason": null,
+      "tool_errors": []
+    }
+  ],
+  "errors": [],
+  "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+}

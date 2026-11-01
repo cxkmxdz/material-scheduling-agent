@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Preserve the bytes of recorded evidence so manifest SHA256 values survive checkout.
+examples/** -text

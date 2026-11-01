@@ -1,0 +1,45 @@
+{
+  "run_id": "run-e15977951d8a44f389822fa366b99cb6",
+  "mode": "mock",
+  "model": "offline-script-v1",
+  "request_id": "req-missing",
+  "task_status": "needs_input",
+  "stop_reason": "model_finished",
+  "steps": 2,
+  "tool_calls": 1,
+  "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\examples\\mock\\missing.trace.jsonl",
+  "items": [
+    {
+      "material_id": "M02",
+      "review_status": "needs_information",
+      "risk_reasons": [],
+      "missing_fields": [
+        "asset_url",
+        "rights_owner"
+      ],
+      "original_requirement": {
+        "request_id": "req-missing",
+        "material_ids": [
+          "M02"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "task_status": "needs_input",
+      "unfinished_reason": "Provide missing fields: asset_url, rights_owner",
+      "tool_errors": []
+    }
+  ],
+  "errors": [],
+  "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+}

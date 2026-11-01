@@ -1,0 +1,42 @@
+{
+  "run_id": "run-e9af07d63ef54c38b19ed67c1c738c3f",
+  "mode": "mock",
+  "model": "offline-script-v1",
+  "request_id": "req-001",
+  "task_status": "incomplete",
+  "stop_reason": "tool_limit",
+  "steps": 2,
+  "tool_calls": 1,
+  "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\examples\\mock\\tool_limit.trace.jsonl",
+  "items": [
+    {
+      "material_id": "M01",
+      "review_status": null,
+      "risk_reasons": [],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-001",
+        "material_ids": [
+          "M01"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "task_status": "incomplete",
+      "unfinished_reason": "Required tool evidence or durable save is incomplete",
+      "tool_errors": []
+    }
+  ],
+  "errors": [],
+  "notice": "MOCK: validates local flow only, not real-model decisions. Drafts only; nothing published."
+}

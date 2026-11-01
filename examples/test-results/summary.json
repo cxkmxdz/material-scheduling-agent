@@ -1,0 +1,22 @@
+{
+  "started_at": "2026-11-01T14:51:56.469613+00:00",
+  "duration_seconds": 8.651,
+  "exit_code": 0,
+  "command": "python -m pytest -q --junitxml=<output>/pytest.xml",
+  "counts": {
+    "tests": 73,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "python": "3.13.5",
+  "platform": "Windows",
+  "versions": {
+    "material-scheduling-agent": "0.1.0",
+    "httpx": "0.28.1",
+    "pydantic": "2.12.3",
+    "python-dotenv": "1.2.1",
+    "pytest": "8.4.2"
+  },
+  "boundary": "Offline tests only. httpx.MockTransport tests are fake HTTP responses, not real-model validation."
+}

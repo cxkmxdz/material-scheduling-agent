@@ -1,0 +1,8 @@
+[
+  {"material_id":"M01","title":"秋日剪辑技巧","asset_url":"demo://assets/M01.mp4","rights_owner":"demo-team","copyright_cleared":true},
+  {"material_id":"M02","title":"旅行相册","asset_url":"","rights_owner":"","copyright_cleared":true},
+  {"material_id":"M03","title":"绝对治愈所有疾病","asset_url":"demo://assets/M03.mp4","rights_owner":"demo-team","copyright_cleared":true},
+  {"material_id":"M04","title":"夜景调色教程","asset_url":"demo://assets/M04.mp4","rights_owner":"demo-team","copyright_cleared":true},
+  {"material_id":"M05","title":"未授权音乐剪辑","asset_url":"demo://assets/M05.mp4","rights_owner":"demo-team","copyright_cleared":false},
+  {"material_id":"M06","title":"限时剪辑挑战","asset_url":"demo://assets/M06.mp4","rights_owner":"demo-team","copyright_cleared":true}
+]

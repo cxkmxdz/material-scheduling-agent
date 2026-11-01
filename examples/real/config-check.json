@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-11-01T14:55:56.307249+00:00",
+  "command": "python scripts/real_comparison.py",
+  "exit_code": 2,
+  "actual_result": {
+    "mode": "real",
+    "validation_status": "not_run",
+    "code": "MODEL_CONFIGURATION_MISSING",
+    "required": [
+      "MODEL_API_KEY",
+      "MODEL_NAME",
+      "MODEL_BASE_URL (if using compatible provider)"
+    ]
+  }
+}

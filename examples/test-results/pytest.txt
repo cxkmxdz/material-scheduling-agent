@@ -1,0 +1,4 @@
+........................................................................ [ 98%]
+.                                                                        [100%]
+- generated xml file: D:\wenjian\简历\小影笔试\scheduling-agent\examples\test-results\pytest.xml -
+73 passed in 7.74s
