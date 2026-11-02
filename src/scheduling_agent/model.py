@@ -41,8 +41,9 @@ def function_tools() -> list[dict]:
 
 
 class ModelError(Exception):
-    def __init__(self, code: str):
+    def __init__(self, code: str, details: dict | None = None):
         self.code = code
+        self.details = details or {}
         super().__init__(code)
 
 
@@ -58,7 +59,7 @@ class RealModel:
     mode = "real"
 
     def __init__(self, api_key: str, name: str, base_url: str = "https://api.openai.com/v1",
-                 timeout: float = 30, transport=None):
+                 timeout: float = 30, transport=None, thinking: str | None = None):
         if not api_key or not name:
             raise ModelError("MODEL_CONFIGURATION_MISSING")
         url = httpx.URL(base_url)
@@ -66,7 +67,15 @@ class RealModel:
             raise ModelError("MODEL_BASE_URL_REQUIRES_HTTPS")
         if timeout <= 0:
             raise ModelError("MODEL_TIMEOUT_INVALID")
+        # DeepSeek thinking mode rejects required tool choice. This runtime uses a
+        # finish function and requires tool calls, so explicitly select non-thinking.
+        if thinking is None and url.host == "api.deepseek.com":
+            thinking = "disabled"
+        if thinking not in (None, "disabled"):
+            raise ModelError("MODEL_THINKING_MUST_BE_DISABLED_OR_EMPTY")
         self.name, self.secrets = name, (api_key,)
+        self.thinking = thinking
+        self.response_metadata = {}
         self.base_url = base_url.rstrip("/")
         self.client = httpx.Client(timeout=timeout, transport=transport, follow_redirects=False,
                                    headers={"Authorization": "Bearer " + api_key})
@@ -76,7 +85,8 @@ class RealModel:
         try:
             return cls(os.getenv("MODEL_API_KEY", ""), os.getenv("MODEL_NAME", ""),
                        os.getenv("MODEL_BASE_URL", "https://api.openai.com/v1"),
-                       float(os.getenv("MODEL_TIMEOUT_SECONDS", "30")))
+                       float(os.getenv("MODEL_TIMEOUT_SECONDS", "30")),
+                       thinking=os.getenv("MODEL_THINKING", "").strip() or None)
         except ValueError:
             raise ModelError("MODEL_CONFIGURATION_INVALID") from None
 
@@ -84,6 +94,7 @@ class RealModel:
         self.client.close()
 
     def decide(self, request: Request, history: list[dict]):
+        self.response_metadata = {}
         messages = [{"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": dumps(request.model_dump(mode="json"))}]
         for i, record in enumerate(history):
@@ -93,21 +104,40 @@ class RealModel:
                 "id": call_id, "type": "function", "function": {"name": action["tool"],
                 "arguments": dumps(dict(action["arguments"], decision_summary=action["decision_summary"]))}}]},
                 {"role": "tool", "tool_call_id": call_id, "content": dumps(result)}]
+        body = {"model": self.name, "messages": messages, "tools": function_tools(),
+                "tool_choice": "required", "parallel_tool_calls": False}
+        if self.thinking:
+            body["thinking"] = {"type": self.thinking}
         try:
-            response = self.client.post(self.base_url + "/chat/completions", json={
-                "model": self.name, "messages": messages, "tools": function_tools(),
-                "tool_choice": "required", "parallel_tool_calls": False})
+            response = self.client.post(self.base_url + "/chat/completions", json=body)
+            self.response_metadata = {"http_status": response.status_code}
             response.raise_for_status()
         except httpx.TimeoutException:
             raise ModelError("MODEL_TIMEOUT") from None
         except httpx.HTTPStatusError as exc:
             code = {401: "MODEL_AUTH_ERROR", 403: "MODEL_AUTH_ERROR", 429: "MODEL_RATE_OR_QUOTA_LIMIT"}.get(
                 exc.response.status_code, "MODEL_HTTP_ERROR")
-            raise ModelError(code) from None
+            raise ModelError(code, {"http_status": exc.response.status_code}) from None
         except httpx.RequestError:
             raise ModelError("MODEL_CONNECTION_ERROR") from None
         try:
-            calls = response.json()["choices"][0]["message"]["tool_calls"]
+            data = response.json()
+            if not isinstance(data, dict):
+                raise ValueError("response must be an object")
+            choice = data["choices"][0]
+            if not isinstance(choice, dict):
+                raise ValueError("choice must be an object")
+            # Keep only provenance/counts, never raw response content or internal reasoning.
+            for key in ("id", "model"):
+                if isinstance(data.get(key), str):
+                    self.response_metadata[key] = data[key][:200]
+            usage = data.get("usage")
+            if isinstance(usage, dict):
+                self.response_metadata["usage"] = {k: usage[k] for k in ("prompt_tokens", "completion_tokens", "total_tokens")
+                                                   if type(usage.get(k)) is int and usage[k] >= 0}
+            if isinstance(choice.get("finish_reason"), str):
+                self.response_metadata["finish_reason"] = choice["finish_reason"][:100]
+            calls = choice["message"]["tool_calls"]
             if len(calls) != 1 or calls[0]["type"] != "function":
                 raise ValueError("exactly one function call required")
             call = calls[0]["function"]

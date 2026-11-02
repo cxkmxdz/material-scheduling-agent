@@ -139,6 +139,59 @@ def test_no_insecure_nonlocal_endpoint():
         RealModel("key", "model", "http://example.test/v1")
 
 
+def test_explicit_non_thinking_provider_configuration(request_data):
+    sent = []
+    def handle(req):
+        sent.append(json.loads(req.content))
+        data = reply("finish", {"decision_summary": "Stop"})
+        data.update(id="response-test-123", model="provider-model", usage={"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15, "private": "not-kept"})
+        data["choices"][0]["message"]["reasoning_content"] = "private reasoning must not be retained"
+        return httpx.Response(200, json=data)
+    model = RealModel("secret", "test", thinking="disabled", transport=httpx.MockTransport(handle))
+    try:
+        model.decide(Request.model_validate(request_data), [])
+        assert sent[0]["thinking"] == {"type": "disabled"}
+        assert model.response_metadata == {"http_status": 200, "id": "response-test-123", "model": "provider-model",
+                                           "usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15}}
+        assert "reasoning" not in json.dumps(model.response_metadata)
+    finally:
+        model.close()
+
+
+def test_default_payload_has_no_provider_specific_thinking_field(request_data):
+    def handle(req):
+        assert "thinking" not in json.loads(req.content)
+        return httpx.Response(200, json=reply("finish", {"decision_summary": "Stop"}))
+    model = RealModel("secret", "test", transport=httpx.MockTransport(handle))
+    try:
+        model.decide(Request.model_validate(request_data), [])
+    finally:
+        model.close()
+
+
+def test_deepseek_endpoint_defaults_to_non_thinking_for_required_tools(request_data):
+    def handle(req):
+        assert json.loads(req.content)["thinking"] == {"type": "disabled"}
+        return httpx.Response(200, json=reply("finish", {"decision_summary": "Stop"}))
+    model = RealModel("secret", "deepseek-flash", base_url="https://api.deepseek.com", transport=httpx.MockTransport(handle))
+    try:
+        assert model.thinking == "disabled"
+        model.decide(Request.model_validate(request_data), [])
+    finally:
+        model.close()
+
+
+def test_auth_error_retains_http_status_without_response_body(request_data):
+    model = RealModel("secret", "test", transport=httpx.MockTransport(lambda _: httpx.Response(401, text="private")))
+    try:
+        with pytest.raises(ModelError) as error:
+            model.decide(Request.model_validate(request_data), [])
+        assert error.value.details == {"http_status": 401}
+        assert model.response_metadata == {"http_status": 401}
+    finally:
+        model.close()
+
+
 def test_cli_runs_in_new_process_and_refuses_overwrite(tmp_path, request_data):
     input_path, output, trace = (tmp_path / n for n in ("input.json", "out.json", "trace.jsonl"))
     input_path.write_text(json.dumps(request_data), encoding="utf-8")

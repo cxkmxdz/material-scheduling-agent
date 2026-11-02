@@ -1,0 +1,53 @@
+{
+  "run_id": "run-e1c28fa7a67d431f99a73b0ceb40a1f0",
+  "mode": "real",
+  "model": "deepseek-flash",
+  "request_id": "req-001",
+  "task_status": "failed",
+  "stop_reason": "model_finished",
+  "steps": 6,
+  "tool_calls": 5,
+  "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\examples\\real\\20261102-121118-525417\\save_failure.trace.jsonl",
+  "items": [
+    {
+      "material_id": "M01",
+      "review_status": "passed",
+      "risk_reasons": [],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-001",
+        "material_ids": [
+          "M01"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": "2026-11-05T18:00:00+08:00",
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "failed",
+      "draft_id": null,
+      "task_status": "failed",
+      "unfinished_reason": "No durable draft after save attempts",
+      "tool_errors": [
+        {
+          "tool": "save_draft",
+          "code": "SAVE_FAILED",
+          "summary": "SQLite save failed and transaction rolled back"
+        },
+        {
+          "tool": "save_draft",
+          "code": "SAVE_FAILED",
+          "summary": "SQLite save failed and transaction rolled back"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "notice": "Real API mode. Drafts only; nothing published. Check status and errors."
+}

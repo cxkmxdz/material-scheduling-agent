@@ -1,6 +1,8 @@
 # 素材审核与发布排期 Agent 评估记录
 
-本次离线自动测试实际运行结果为 73 项通过、0 失败、0 错误、0 跳过，运行环境为 Windows 和 Python 3.13.5。依据为 `examples/test-results/summary.json`、`pytest.txt` 和 `pytest.xml`，不是预计测试数量。真实模型尚未验证，不能将以下离线结果当作真实模型效果。
+2026-11-02 已完成 deepseek-flash 的同请求三组真实对照，全部达到本次验收判据；最终离线回归实测 83 项通过、0 失败。真实证据位于 `examples/real/20261102-121118-525417/`，最终测试报告位于 `examples/test-results-real-final/`。运行环境为 Windows 和 Python 3.13.5。单次三组通过不能代表多次稳定性或其他模型均已验证。
+
+初次交付的离线结果为 73 项通过，依据为 `examples/test-results/`；后续准备阶段为 82 项通过，依据为 `examples/test-results-followup/`。这些历史报告保留原样，不作为真实模型效果证明。
 
 另外在新的 `runtime/clean-venv` 中实际执行 `uv sync --locked --extra dev`，重新安装 19 个包并运行完整测试，同样 73 项通过。独立报告见 `examples/test-results-clean/summary.json`。这是同一台 Windows 机器上的全新虚拟环境验证，不代表另一操作系统或另一 Python 版本已通过。
 
@@ -29,7 +31,7 @@
 
 第二组对照仍使用同一请求：normal 一次保存成功；save_retry 在 SQLite INSERT 后实际触发错误并回滚，下一轮 Mock 观察到 SAVE_FAILED 后再调用 save_draft，最终查询数据库有一份草稿。save_failure 两次错误后结束，输出 failed 且数据库为空。
 
-以上两组证实观察影响脚本模拟的下一步和业务执行，**不能证明真实模型依据观察调整行为**。真实对照脚本已经实现，必须配置实际模型才能补齐 A11。
+以上两组证实观察影响脚本模拟的下一步和业务执行，**不能证明真实模型依据观察调整行为**。A11 的实际模型证据另见后面的真实对照，不混用 Mock 结论。
 
 ## 自动测试覆盖
 
@@ -45,10 +47,30 @@
 
 本文件如与将来的测试报告不一致，应以新运行证据为准并同步更新，不能沿用旧通过数量。
 
-## 真实模型未完成项
+## 真实模型对照
 
-`scripts/real_comparison.py` 已实际尝试启动，返回 MODEL_CONFIGURATION_MISSING，未向模型端点发送请求。缺少 MODEL_API_KEY 和 MODEL_NAME；若使用兼容服务，另需正确的 MODEL_BASE_URL 及支持原生函数调用的模型、可用额度和网络。`examples/real/STATUS.md` 明确记录未执行，不存在伪造真实结果。
+实际服务为 api.deepseek.com，配置与服务返回的模型名均为 deepseek-flash。三组使用同一个 req-001、M01、demo 渠道、18:00 hard 要求和 18:00–21:00 窗口，规范化请求 SHA256 为 `ffd6ca864d5dbab25d7837617bbd46e0c9670418b03b825b245b40515fb385a4`。提示、工具和模型配置相同，仅改变各独立数据库的已确认占用或 SQLite 故障注入。thinking 显式 disabled，工具选择 required，一轮一个函数调用；没有运行器预排动作或切换 Mock。
 
-补齐配置后运行真实对照，验收原时段空闲、仅改变占用、保存故障三组条件，阅读 Trace 解释动作差异，保留实际模型名称、输出、错误和数据库导出。当前未验证任何实际提供方的兼容性、决策稳定性、延迟或成本。
+| 条件 | 模型观察后的实际动作 | 最终状态 | 数据库 |
+| --- | --- | --- | --- |
+| free | 第 3 轮查询 18:00 可用，第 4 轮保存原时段，第 5 轮 finish | completed / saved / not_required | 1 草稿，原时段占位 |
+| occupied | 第 3 轮查出冲突，第 4 轮补查完整窗口，第 5 轮选 19:00 保存，第 6 轮 finish | completed / saved / pending_confirmation | 1 建议草稿，不占位，保留 18:00 原要求 |
+| save_failure | 第 4 轮保存观察 SAVE_FAILED，第 5 轮重试仍失败，第 6 轮 finish | failed / failed / ID null | 0 草稿，两次 INSERT 均回滚 |
+
+free 共 4 次业务工具调用、5 次实际模型请求；occupied 和 save_failure 分别为 5 次业务工具调用、6 次模型请求。17 个决策响应均 HTTP 200，各自响应 ID、实际模型名和 token 数见 Trace 的 model_response。业务保存失败场景的最终任务状态 failed 是预期正确结果，所以该场景 acceptance_met 为 true；这与前两次接口错误导致未通过有明确区别。
+
+逐条读取 `free.trace.jsonl`、`occupied.trace.jsonl`、`save_failure.trace.jsonl` 并核对数据库导出后，确认模型确实依据不同观察增加替代查询或选择一次重试。`comparison.json` 保存每项检查、动作参数、简短决策说明和观察后的下一步，`manifest.json` 保存原始产物摘要。没有伪造草稿 ID、代替用户确认或执行发布。
+
+## 真实运行暴露的问题及修复
+
+首次 `20261102-120512-282303/` 三组均鉴权失败，工具调用为 0：模型名为 deepseek，但端点仍为 api.openai.com/v1。未发现环境变量覆盖 .env；用户在本地修正服务地址和有效模型 ID。这轮保留为失败证据，不算业务验收。
+
+第二次 `20261102-121014-701231/` 使用 deepseek-flash 和正确地址，但三组均 HTTP 400、工具调用为 0。对错误做不含原文的诊断，确认涉及 thinking 与 tool_choice。根据 [DeepSeek 官方接口说明](https://api-docs.deepseek.com/api/create-chat-completion/)，thinking 模式不支持 required 工具选择。适配器因此对 DeepSeek 官方端点默认显式发送 thinking disabled，其他端点不自动添加该字段；另提供 MODEL_THINKING=disabled 可选配置。修复后先回归测试，再得到上面的第三轮真实通过记录。
+
+本轮还修正原评估脚本只看最终状态的不足，增加观察顺序、后续模型动作、确认状态和数据库一致性检查，避免将 API 错误误判成保存故障验收通过。新增响应 ID、HTTP 状态、返回模型及 token 数记录；不记录错误体、密钥或内部思维链。原缺配置记录 config-check.json 及上述两轮失败证据都未覆盖。
+
+## 限制
+
+本次仅对一个服务、一个模型的一组请求完成三条件对照，未做多次稳定性、其他模型或成本基准。保存失败 Trace 的第 4 轮简短说明将原时段草稿称为 pending proposal，措辞不够精确；工具和最终结构化确认状态均正确为 not_required，说明文字不作为权限或保存事实。该观察如实保留，未润色模型原始记录。
 
 其他限制：演示只检查元数据规则；没有人工确认或真实发布；待确认建议不占位，可能建议同一小时；跨素材不是整批原子事务；每个请求 ID 不允许改内容重提，补齐信息应使用新 ID；本次未实测非 Windows 系统。GitHub URL 与评审权限仍待候选人完成。

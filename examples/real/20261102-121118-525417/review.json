@@ -1,0 +1,42 @@
+{
+  "reviewed_at": "2026-11-02T04:13:40.637733+00:00",
+  "method": "Offline re-evaluation of actual recorded outputs, traces and durable database exports; no new model requests.",
+  "conditions": [
+    {
+      "condition": "free",
+      "checks_passed": true,
+      "actual_model_responses": 5,
+      "http_statuses": [
+        200
+      ],
+      "reported_total_tokens": 8201,
+      "recorded_wall_seconds": 4.402,
+      "database_draft_count": 1
+    },
+    {
+      "condition": "occupied",
+      "checks_passed": true,
+      "actual_model_responses": 6,
+      "http_statuses": [
+        200
+      ],
+      "reported_total_tokens": 10961,
+      "recorded_wall_seconds": 5.283,
+      "database_draft_count": 1
+    },
+    {
+      "condition": "save_failure",
+      "checks_passed": true,
+      "actual_model_responses": 6,
+      "http_statuses": [
+        200
+      ],
+      "reported_total_tokens": 10062,
+      "recorded_wall_seconds": 5.363,
+      "database_draft_count": 0
+    }
+  ],
+  "total_actual_model_responses": 17,
+  "unique_response_ids": 17,
+  "all_acceptance_met": true
+}

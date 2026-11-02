@@ -1,0 +1,18 @@
+{
+  "mode": "real",
+  "model": "deepseek-flash",
+  "sha256": {
+    "comparison.json": "d51b75170bc2a8bc82e58b64642284bf6fdb765565b7496890de438b23055854",
+    "free.database.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "free.output.json": "0d02e3992c19559af231e5398ec30112d9cd39d0d7c2836cfc3044bd554e9b5e",
+    "free.trace.jsonl": "49363bfac0df8ec1af61bac05c351027ac02d2941c48ffe8e9d46f8de3e3d020",
+    "input.json": "0e0317df5f96fc5a72730d4fcb7109944ca49986c095ae7621b2080fbcca4645",
+    "occupied.database.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "occupied.output.json": "67e41b5c6e93814d6afce782bc232dc13ab2e5520ee8ae605ba2717ffde0ad9b",
+    "occupied.trace.jsonl": "4bd15f173c75b0ec9917ce62ebbd175f841f095740a6c204e8281728c978c09d",
+    "save_failure.database.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "save_failure.output.json": "13404d5eeca617323387792109a0e7ac5a7e47704d301d49c8acb5880c91a2ba",
+    "save_failure.trace.jsonl": "db5e7fb0202ebf2178b4ffa1157f3376e0fa82e510e6f4b80ec0ab1771458554"
+  },
+  "all_acceptance_met": false
+}

@@ -1,0 +1,176 @@
+{
+  "mode": "real",
+  "model": "deepseek-flash",
+  "timestamp": "2026-11-02T04:10:16.458824+00:00",
+  "same_request": {
+    "request_id": "req-001",
+    "material_ids": [
+      "M01"
+    ],
+    "channel": "demo",
+    "requested_at": "2026-11-05T18:00:00+08:00",
+    "time_requirement": "hard",
+    "search_window": {
+      "start": "2026-11-05T18:00:00+08:00",
+      "end": "2026-11-05T21:00:00+08:00"
+    }
+  },
+  "request_digest": "ffd6ca864d5dbab25d7837617bbd46e0c9670418b03b825b245b40515fb385a4",
+  "conditions": [
+    {
+      "condition": "free",
+      "run_id": "run-41da781b4fde44c19250205cf43744cf",
+      "model": "deepseek-flash",
+      "observed_status": "failed",
+      "stop_reason": "model_error",
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "database_draft_count": 0,
+      "errors": [
+        {
+          "code": "MODEL_HTTP_ERROR",
+          "summary": "Model decision failed; no implicit retry",
+          "details": {
+            "http_status": 400
+          }
+        }
+      ],
+      "acceptance_met": false,
+      "checks": {
+        "real_mode": true,
+        "model_finished_without_api_error": false,
+        "passing_review_observed": false,
+        "original_requirement_preserved": true,
+        "no_publication": true,
+        "database_output_consistent": true,
+        "original_slot_available_observed": false,
+        "saved_original_slot_after_observation": false,
+        "completed_saved_without_confirmation": false,
+        "ordinary_draft_reserves_slot": false
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "model_error",
+          "arguments": {},
+          "code": null,
+          "decision_summary": ""
+        }
+      ],
+      "observed_reactions": [],
+      "tool_calls": 0,
+      "output": "free.output.json",
+      "trace": "free.trace.jsonl",
+      "database": "free.database.json",
+      "seed_confirmed_schedules": false,
+      "injected_save_failures": 0
+    },
+    {
+      "condition": "occupied",
+      "run_id": "run-252ec11b770b43d29a0e0f0792f3841b",
+      "model": "deepseek-flash",
+      "observed_status": "failed",
+      "stop_reason": "model_error",
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "database_draft_count": 0,
+      "errors": [
+        {
+          "code": "MODEL_HTTP_ERROR",
+          "summary": "Model decision failed; no implicit retry",
+          "details": {
+            "http_status": 400
+          }
+        }
+      ],
+      "acceptance_met": false,
+      "checks": {
+        "real_mode": true,
+        "model_finished_without_api_error": false,
+        "passing_review_observed": false,
+        "original_requirement_preserved": true,
+        "no_publication": true,
+        "database_output_consistent": true,
+        "original_conflict_observed": false,
+        "alternative_chosen_after_conflict": false,
+        "free_alternative_evidence_before_save": false,
+        "alternative_inside_window": false,
+        "completed_saved_pending_confirmation": false,
+        "pending_draft_does_not_reserve": false
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "model_error",
+          "arguments": {},
+          "code": null,
+          "decision_summary": ""
+        }
+      ],
+      "observed_reactions": [],
+      "tool_calls": 0,
+      "output": "occupied.output.json",
+      "trace": "occupied.trace.jsonl",
+      "database": "occupied.database.json",
+      "seed_confirmed_schedules": true,
+      "injected_save_failures": 0
+    },
+    {
+      "condition": "save_failure",
+      "run_id": "run-0482a9dbcb524e62907438e8c9e57aae",
+      "model": "deepseek-flash",
+      "observed_status": "failed",
+      "stop_reason": "model_error",
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "database_draft_count": 0,
+      "errors": [
+        {
+          "code": "MODEL_HTTP_ERROR",
+          "summary": "Model decision failed; no implicit retry",
+          "details": {
+            "http_status": 400
+          }
+        }
+      ],
+      "acceptance_met": false,
+      "checks": {
+        "real_mode": true,
+        "model_finished_without_api_error": false,
+        "passing_review_observed": false,
+        "original_requirement_preserved": true,
+        "no_publication": true,
+        "database_output_consistent": true,
+        "real_save_failure_observed": false,
+        "bounded_save_attempts": false,
+        "model_decision_after_failure": false,
+        "failed_without_fake_id": false,
+        "database_rolled_back": true
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "model_error",
+          "arguments": {},
+          "code": null,
+          "decision_summary": ""
+        }
+      ],
+      "observed_reactions": [],
+      "tool_calls": 0,
+      "output": "save_failure.output.json",
+      "trace": "save_failure.trace.jsonl",
+      "database": "save_failure.database.json",
+      "seed_confirmed_schedules": false,
+      "injected_save_failures": 2
+    }
+  ],
+  "all_acceptance_met": false,
+  "review": "Acceptance uses ordered tool observations, subsequent model actions and durable database records. Inspect traces for decision quality; a single comparison does not establish stability."
+}

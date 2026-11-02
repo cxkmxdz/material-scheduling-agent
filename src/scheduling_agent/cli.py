@@ -59,7 +59,7 @@ def main(argv=None) -> int:
             if args.output and args.trace and args.output.resolve() == args.trace.resolve():
                 raise ValueError("output and trace must be different files")
             request = Request.model_validate_json(args.input.read_text(encoding="utf-8-sig"))
-            load_dotenv(override=False)
+            load_dotenv(override=False, encoding="utf-8-sig")
             model = MockModel() if args.mode == "mock" else RealModel.from_env()
             repo = Repository(args.db)
             tools = Tools(request, repo, args.data_dir, args.fail_saves)

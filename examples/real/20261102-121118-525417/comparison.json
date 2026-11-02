@@ -1,0 +1,351 @@
+{
+  "mode": "real",
+  "model": "deepseek-flash",
+  "timestamp": "2026-11-02T04:11:35.240207+00:00",
+  "model_settings": {
+    "thinking": "disabled",
+    "tool_choice": "required",
+    "parallel_tool_calls": false
+  },
+  "same_request": {
+    "request_id": "req-001",
+    "material_ids": [
+      "M01"
+    ],
+    "channel": "demo",
+    "requested_at": "2026-11-05T18:00:00+08:00",
+    "time_requirement": "hard",
+    "search_window": {
+      "start": "2026-11-05T18:00:00+08:00",
+      "end": "2026-11-05T21:00:00+08:00"
+    }
+  },
+  "request_digest": "ffd6ca864d5dbab25d7837617bbd46e0c9670418b03b825b245b40515fb385a4",
+  "conditions": [
+    {
+      "condition": "free",
+      "run_id": "run-fa508f3ce95347efbf1a195e03baf2c1",
+      "model": "deepseek-flash",
+      "observed_status": "completed",
+      "stop_reason": "model_finished",
+      "proposed_at": "2026-11-05T18:00:00+08:00",
+      "confirmation_status": "not_required",
+      "save_status": "saved",
+      "draft_id": "draft-f21d1c8eaaba46fe85021f67efbbd841",
+      "database_draft_count": 1,
+      "errors": [],
+      "acceptance_met": true,
+      "checks": {
+        "real_mode": true,
+        "model_finished_without_api_error": true,
+        "passing_review_observed": true,
+        "original_requirement_preserved": true,
+        "no_publication": true,
+        "database_output_consistent": true,
+        "original_slot_available_observed": true,
+        "saved_original_slot_after_observation": true,
+        "completed_saved_without_confirmation": true,
+        "ordinary_draft_reserves_slot": true
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "read_material",
+          "arguments": {
+            "material_id": "M01"
+          },
+          "code": "MATERIAL_READ",
+          "decision_summary": "Reading M01 to check required fields and any existing draft."
+        },
+        {
+          "step": 2,
+          "action": "check_rules",
+          "arguments": {
+            "material_id": "M01"
+          },
+          "code": "RULES_CHECKED",
+          "decision_summary": "Reviewing M01 against demo rules before scheduling."
+        },
+        {
+          "step": 3,
+          "action": "query_slots",
+          "arguments": {
+            "material_id": "M01",
+            "start": "2026-11-05T18:00:00+08:00",
+            "end": "2026-11-05T19:00:00+08:00"
+          },
+          "code": "SLOTS_QUERIED",
+          "decision_summary": "Querying the original requested one-hour slot 18:00–19:00 for M01."
+        },
+        {
+          "step": 4,
+          "action": "save_draft",
+          "arguments": {
+            "material_id": "M01",
+            "proposed_at": "2026-11-05T18:00:00+08:00"
+          },
+          "code": "DRAFT_SAVED",
+          "decision_summary": "Saving M01 draft at the requested 18:00 slot, which is free; hard time unchanged so no change confirmation needed."
+        },
+        {
+          "step": 5,
+          "action": "finish",
+          "arguments": {},
+          "code": null,
+          "decision_summary": "M01 passed rule review and was saved as draft-f21d1c8eaaba46fe85021f67efbbd841 at the original 18:00 slot; no publication or human approval claimed."
+        }
+      ],
+      "observed_reactions": [],
+      "tool_calls": 4,
+      "output": "free.output.json",
+      "trace": "free.trace.jsonl",
+      "database": "free.database.json",
+      "seed_confirmed_schedules": false,
+      "injected_save_failures": 0
+    },
+    {
+      "condition": "occupied",
+      "run_id": "run-fd8f550352fc457d9d80c0e01e4204b2",
+      "model": "deepseek-flash",
+      "observed_status": "completed",
+      "stop_reason": "model_finished",
+      "proposed_at": "2026-11-05T19:00:00+08:00",
+      "confirmation_status": "pending_confirmation",
+      "save_status": "saved",
+      "draft_id": "draft-c4d88285f3534f76aeee691f0026471d",
+      "database_draft_count": 1,
+      "errors": [],
+      "acceptance_met": true,
+      "checks": {
+        "real_mode": true,
+        "model_finished_without_api_error": true,
+        "passing_review_observed": true,
+        "original_requirement_preserved": true,
+        "no_publication": true,
+        "database_output_consistent": true,
+        "original_conflict_observed": true,
+        "alternative_chosen_after_conflict": true,
+        "free_alternative_evidence_before_save": true,
+        "alternative_inside_window": true,
+        "completed_saved_pending_confirmation": true,
+        "pending_draft_does_not_reserve": true
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "read_material",
+          "arguments": {
+            "material_id": "M01"
+          },
+          "code": "MATERIAL_READ",
+          "decision_summary": "Reading M01 to check required fields and any existing draft."
+        },
+        {
+          "step": 2,
+          "action": "check_rules",
+          "arguments": {
+            "material_id": "M01"
+          },
+          "code": "RULES_CHECKED",
+          "decision_summary": "Checking M01 against demo rules before scheduling."
+        },
+        {
+          "step": 3,
+          "action": "query_slots",
+          "arguments": {
+            "material_id": "M01",
+            "start": "2026-11-05T18:00:00+08:00",
+            "end": "2026-11-05T19:00:00+08:00"
+          },
+          "code": "SLOTS_QUERIED",
+          "decision_summary": "Querying M01's original one-hour slot 18:00-19:00 for conflicts."
+        },
+        {
+          "step": 4,
+          "action": "query_slots",
+          "arguments": {
+            "end": "2026-11-05T21:00:00+08:00",
+            "material_id": "M01",
+            "start": "2026-11-05T18:00:00+08:00"
+          },
+          "code": "SLOTS_QUERIED",
+          "decision_summary": "Original slot is occupied, so querying the full search window 18:00-21:00 for alternatives."
+        },
+        {
+          "step": 5,
+          "action": "save_draft",
+          "arguments": {
+            "material_id": "M01",
+            "proposed_at": "2026-11-05T19:00:00+08:00"
+          },
+          "code": "DRAFT_SAVED",
+          "decision_summary": "Saving M01 draft at the first free hour 19:00-20:00; this hard-time shift is a proposal pending human confirmation."
+        },
+        {
+          "step": 6,
+          "action": "finish",
+          "arguments": {},
+          "code": null,
+          "decision_summary": "M01 passed review; original 18:00 slot conflicted, draft-c4d88285f3534f76aeee691f0026471d saved for 19:00-20:00 as a pending-confirmation hard-time proposal."
+        }
+      ],
+      "observed_reactions": [
+        {
+          "observation_step": 3,
+          "observation": "original_slot_occupied",
+          "next_model_action": {
+            "step": 4,
+            "action": "query_slots",
+            "arguments": {
+              "end": "2026-11-05T21:00:00+08:00",
+              "material_id": "M01",
+              "start": "2026-11-05T18:00:00+08:00"
+            },
+            "code": "SLOTS_QUERIED",
+            "decision_summary": "Original slot is occupied, so querying the full search window 18:00-21:00 for alternatives."
+          }
+        },
+        {
+          "observation_step": 4,
+          "observation": "original_slot_occupied",
+          "next_model_action": {
+            "step": 5,
+            "action": "save_draft",
+            "arguments": {
+              "material_id": "M01",
+              "proposed_at": "2026-11-05T19:00:00+08:00"
+            },
+            "code": "DRAFT_SAVED",
+            "decision_summary": "Saving M01 draft at the first free hour 19:00-20:00; this hard-time shift is a proposal pending human confirmation."
+          }
+        }
+      ],
+      "tool_calls": 5,
+      "output": "occupied.output.json",
+      "trace": "occupied.trace.jsonl",
+      "database": "occupied.database.json",
+      "seed_confirmed_schedules": true,
+      "injected_save_failures": 0
+    },
+    {
+      "condition": "save_failure",
+      "run_id": "run-e1c28fa7a67d431f99a73b0ceb40a1f0",
+      "model": "deepseek-flash",
+      "observed_status": "failed",
+      "stop_reason": "model_finished",
+      "proposed_at": "2026-11-05T18:00:00+08:00",
+      "confirmation_status": "not_required",
+      "save_status": "failed",
+      "draft_id": null,
+      "database_draft_count": 0,
+      "errors": [],
+      "acceptance_met": true,
+      "checks": {
+        "real_mode": true,
+        "model_finished_without_api_error": true,
+        "passing_review_observed": true,
+        "original_requirement_preserved": true,
+        "no_publication": true,
+        "database_output_consistent": true,
+        "real_save_failure_observed": true,
+        "bounded_save_attempts": true,
+        "model_decision_after_failure": true,
+        "failed_without_fake_id": true,
+        "database_rolled_back": true
+      },
+      "actions": [
+        {
+          "step": 1,
+          "action": "read_material",
+          "arguments": {
+            "material_id": "M01"
+          },
+          "code": "MATERIAL_READ",
+          "decision_summary": "Reading M01 to check fields and any existing draft."
+        },
+        {
+          "step": 2,
+          "action": "check_rules",
+          "arguments": {
+            "material_id": "M01"
+          },
+          "code": "RULES_CHECKED",
+          "decision_summary": "Checking M01 against demo rules; fields are complete."
+        },
+        {
+          "step": 3,
+          "action": "query_slots",
+          "arguments": {
+            "material_id": "M01",
+            "start": "2026-11-05T18:00:00+08:00",
+            "end": "2026-11-05T19:00:00+08:00"
+          },
+          "code": "SLOTS_QUERIED",
+          "decision_summary": "Querying requested one-hour slot 18:00-19:00 for M01."
+        },
+        {
+          "step": 4,
+          "action": "save_draft",
+          "arguments": {
+            "material_id": "M01",
+            "proposed_at": "2026-11-05T18:00:00+08:00"
+          },
+          "code": "SAVE_FAILED",
+          "decision_summary": "Rules passed and the original slot is free; saving a draft at 18:00 as a pending proposal."
+        },
+        {
+          "step": 5,
+          "action": "save_draft",
+          "arguments": {
+            "material_id": "M01",
+            "proposed_at": "2026-11-05T18:00:00+08:00"
+          },
+          "code": "SAVE_FAILED",
+          "decision_summary": "Retrying the single allowed save for M01 at the originally requested slot."
+        },
+        {
+          "step": 6,
+          "action": "finish",
+          "arguments": {},
+          "code": null,
+          "decision_summary": "M01 passed rules and had a free 18:00 slot, but two save attempts failed and rolled back, so no draft was created."
+        }
+      ],
+      "observed_reactions": [
+        {
+          "observation_step": 4,
+          "observation": "sqlite_save_failed",
+          "next_model_action": {
+            "step": 5,
+            "action": "save_draft",
+            "arguments": {
+              "material_id": "M01",
+              "proposed_at": "2026-11-05T18:00:00+08:00"
+            },
+            "code": "SAVE_FAILED",
+            "decision_summary": "Retrying the single allowed save for M01 at the originally requested slot."
+          }
+        },
+        {
+          "observation_step": 5,
+          "observation": "sqlite_save_failed",
+          "next_model_action": {
+            "step": 6,
+            "action": "finish",
+            "arguments": {},
+            "code": null,
+            "decision_summary": "M01 passed rules and had a free 18:00 slot, but two save attempts failed and rolled back, so no draft was created."
+          }
+        }
+      ],
+      "tool_calls": 5,
+      "output": "save_failure.output.json",
+      "trace": "save_failure.trace.jsonl",
+      "database": "save_failure.database.json",
+      "seed_confirmed_schedules": false,
+      "injected_save_failures": 2
+    }
+  ],
+  "all_acceptance_met": true,
+  "review": "Acceptance uses ordered tool observations, subsequent model actions and durable database records. Inspect traces for decision quality; a single comparison does not establish stability."
+}

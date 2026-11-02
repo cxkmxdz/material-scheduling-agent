@@ -1,0 +1,50 @@
+{
+  "run_id": "run-252ec11b770b43d29a0e0f0792f3841b",
+  "mode": "real",
+  "model": "deepseek-flash",
+  "request_id": "req-001",
+  "task_status": "failed",
+  "stop_reason": "model_error",
+  "steps": 1,
+  "tool_calls": 0,
+  "trace_path": "D:\\wenjian\\简历\\小影笔试\\scheduling-agent\\examples\\real\\20261102-121014-701231\\occupied.trace.jsonl",
+  "items": [
+    {
+      "material_id": "M01",
+      "review_status": null,
+      "risk_reasons": [],
+      "missing_fields": [],
+      "original_requirement": {
+        "request_id": "req-001",
+        "material_ids": [
+          "M01"
+        ],
+        "channel": "demo",
+        "requested_at": "2026-11-05T18:00:00+08:00",
+        "time_requirement": "hard",
+        "search_window": {
+          "start": "2026-11-05T18:00:00+08:00",
+          "end": "2026-11-05T21:00:00+08:00"
+        }
+      },
+      "proposed_at": null,
+      "confirmation_status": "not_required",
+      "pending_confirmations": [],
+      "save_status": "not_attempted",
+      "draft_id": null,
+      "task_status": "incomplete",
+      "unfinished_reason": "Required tool evidence or durable save is incomplete",
+      "tool_errors": []
+    }
+  ],
+  "errors": [
+    {
+      "code": "MODEL_HTTP_ERROR",
+      "summary": "Model decision failed; no implicit retry",
+      "details": {
+        "http_status": 400
+      }
+    }
+  ],
+  "notice": "Real API mode. Drafts only; nothing published. Check status and errors."
+}

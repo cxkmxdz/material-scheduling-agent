@@ -2,7 +2,7 @@
 
 为内容团队读取素材元数据、执行演示规则审核、查询冲突并保存排期草稿。项目只处理草稿；没有发布和代替用户确认的能力。
 
-**当前交付：本地实现和离线验收可运行。真实 API 适配器已实现，真实模型决策验证因缺少配置尚未执行。Mock 是脚本模拟，不能证明真实模型效果。**
+**本地实现和离线验收可运行。真实 API 对照进度与证据见 examples/real/STATUS.md。Mock 是脚本模拟，不能证明真实模型效果。**
 
 ## 评审入口
 
@@ -15,6 +15,8 @@
 - 测试报告：[examples/test-results/summary.json](examples/test-results/summary.json)
 - 全新环境复测：[examples/test-results-clean/summary.json](examples/test-results-clean/summary.json)
 - 真实验证状态：[examples/real/STATUS.md](examples/real/STATUS.md)
+- 已通过的真实对照：[comparison.json](examples/real/20261102-121118-525417/comparison.json)
+- 最终回归报告：[summary.json](examples/test-results-real-final/summary.json)
 
 ## 安装
 
@@ -77,6 +79,8 @@ CLI 退出码：草稿处理 `completed` 为 0；`needs_input/blocked/failed/inc
 
 复制 `.env.example` 为 `.env`，填写 `MODEL_API_KEY` 和支持 Chat Completions function calling 的 `MODEL_NAME`。`MODEL_BASE_URL` 默认为 `https://api.openai.com/v1`；兼容服务填写以 `/v1` 等版本前缀结尾的地址，不加 `/chat/completions`。`MODEL_TIMEOUT_SECONDS` 默认为 30。远端地址必须使用 HTTPS。不要将密钥写进输入 JSON 或提交 Git。
 
+服务地址必须与 key 的签发方匹配；模型名必须是该服务的实际 ID。DeepSeek 官方地址可填写 `https://api.deepseek.com`；项目对该官方端点默认显式禁用 thinking，以支持强制函数调用。也可设置 `MODEL_THINKING=disabled`；对其他端点，该可选字段留空时不会发送。参考 [DeepSeek 官方工具调用文档](https://api-docs.deepseek.com/guides/tool_calls/)。项目不自动选择模型或将失败切换为 Mock。本次实际通过模型为 deepseek-flash。
+
 ```powershell
 Copy-Item .env.example .env
 # 在编辑器中填写 .env，不把真实密钥写进命令历史
@@ -85,7 +89,7 @@ $runTag = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
 .venv\Scripts\python.exe scripts/real_comparison.py
 ```
 
-真实对照脚本对同一请求和同一模型，仅改变工具数据库或故障条件，依次运行空闲、18:00 占用且 19:00 可用、保存失败。每轮真实模型选择工具；运行器没有预排动作。结果默认在 `runtime/real-<时间>/`，对照报告只按实际输出判断，Trace 必须另行阅读。验证通过后可将脱敏的 JSON/JSONL 和报告整理至 `examples/real/`；不要提交 SQLite 文件。
+真实对照脚本对同一请求和同一模型，仅改变工具数据库或故障条件，依次运行空闲、18:00 占用且 19:00 可用、保存失败。每轮真实模型选择工具；运行器没有预排动作。结果默认在 `examples/real/<时间>/`，SQLite 独立保留在被 Git 忽略的 `runtime/real-databases/`。每次运行创建新目录，不覆盖失败证据。报告逐项核查观察顺序、观察后的模型动作、确认状态和持久记录；API 错误不算场景通过。附输入、数据库导出和 SHA256 清单，不提交 SQLite 文件。
 
 每次模型决策会收到完整请求、函数定义和此前工具观察。接口采用原生 function calling，一轮一条调用或 `finish`，格式参考 [OpenAI 官方 Function calling 文档](https://developers.openai.com/api/docs/guides/function-calling)。HTTP 协议测试使用 `httpx.MockTransport`，同样属于离线测试，不能代替上述真实验证。
 
@@ -101,4 +105,4 @@ $runTag = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
 
 `src/scheduling_agent/` 包含模型适配器、循环、工具、SQLite、Trace 和 CLI；`data/` 全是合成资料和演示规则，未接视频内容审核或真实平台。五份交付文档为 Markdown，便于与代码一起审阅。
 
-题号：第 1 题。GitHub URL：待候选人提供或创建。未推送远端；本地 commit SHA 用 `git rev-parse HEAD` 查看。候选人仍须核查 AI 使用记录、补充真实人工贡献；私有仓库需给评审账号读取权限。当前不能声称已完成远端提交或真实模型验收。
+题号：第 1 题。GitHub URL：待候选人提供或创建。未推送远端；本地 commit SHA 用 `git rev-parse HEAD` 查看。候选人仍须核查 AI 使用记录、补充真实人工贡献；私有仓库需给评审账号读取权限。本次三组真实模型对照已经通过，不代表已完成远端提交或多模型稳定性验证。

@@ -74,6 +74,7 @@ def run_agent(request: Request, model: Model, tools: Tools, trace_path: str | Pa
     try:
         trace.write(step=0, action="start", observation_summary="Run started", tool_status="ok",
                     request=request.model_dump(mode="json"), max_steps=max_steps, max_tools=max_tools,
+                    model_settings={"thinking": getattr(model, "thinking", None)},
                     notice="Scripted offline simulation" if model.mode == "mock" else "Real API adapter; inspect errors for actual availability")
         try:
             tools.repository.register(request)
@@ -91,14 +92,18 @@ def run_agent(request: Request, model: Model, tools: Tools, trace_path: str | Pa
                     if not isinstance(action, (ToolAction, FinalAction)):
                         raise ModelError("MODEL_RESPONSE_INVALID")
                 except ModelError as exc:
-                    errors.append({"code": exc.code, "summary": "Model decision failed; no implicit retry"})
+                    error = {"code": exc.code, "summary": "Model decision failed; no implicit retry"}
+                    if exc.details:
+                        error["details"] = exc.details
+                    errors.append(error)
                     trace.write(step=step, action="model_error", tool_status="error",
-                                observation_summary=exc.code)
+                                observation_summary=exc.code, model_response=getattr(model, "response_metadata", {}))
                     stop = "model_error"
                     break
                 if isinstance(action, FinalAction):
                     trace.write(step=step, action="finish", tool_status="ok", decision_summary=action.decision_summary,
-                                observation_summary="Model requested stop; runtime verifies final state")
+                                observation_summary="Model requested stop; runtime verifies final state",
+                                model_response=getattr(model, "response_metadata", {}))
                     stop = "model_finished"
                     break
                 if calls >= max_tools:
@@ -111,7 +116,8 @@ def run_agent(request: Request, model: Model, tools: Tools, trace_path: str | Pa
                 history.append({"action": action.model_dump(), "result": result.model_dump(mode="json")})
                 trace.write(step=step, action=action.tool, tool_arguments=action.arguments,
                             decision_summary=action.decision_summary, observation_summary=result.summary,
-                            tool_status="ok" if result.ok else "error", observation=result.model_dump(mode="json"))
+                            tool_status="ok" if result.ok else "error", observation=result.model_dump(mode="json"),
+                            model_response=getattr(model, "response_metadata", {}))
         try:
             items = _items(request, tools, registered)
         except sqlite3.Error:
