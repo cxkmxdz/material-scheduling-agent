@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-11-03T06:12:09.959485+00:00",
+  "client_review_date": "2026-11-03",
+  "implementation_reference_commit": "057fe6e18afdff870a0fbdf7a36a5fbe7c1112db",
+  "scope": "Tracked working files (including staged documentation) and every local Git blob/commit object, including any unreachable objects. Report itself is produced after inspection.",
+  "tracked_working_files_checked": 134,
+  "reachable_commits_checked": 2,
+  "local_git_blob_objects_checked": 150,
+  "local_git_commit_objects_checked": 2,
+  "secret_and_personal_content_findings": [],
+  "forbidden_historical_paths": [],
+  "local_env": {
+    "exists": true,
+    "api_key_present": true,
+    "ignored_by_git": true,
+    "tracked": false,
+    "ever_committed_in_reachable_history": false
+  },
+  "retained_metadata": {
+    "git_author_or_committer_name_count": 1,
+    "git_author_or_committer_email_count": 1,
+    "working_files_with_local_working_path": 47,
+    "note": "Standard Git author/committer names/emails and working-directory paths in original evidence remain. Actual identities and keys are not copied into this report; history and raw evidence were not rewritten."
+  },
+  "markdown_local_links_checked": 26,
+  "missing_markdown_local_links": [],
+  "evidence_audit": {
+    "ok": true,
+    "tracked_files": 134,
+    "scenario_hashes_verified": 36,
+    "documents": 5,
+    "offline_test_reports": 4,
+    "real_attempt_manifests": 3,
+    "prohibited_tracked_files": 0,
+    "credential_pattern_hits": 0,
+    "remote_push_performed": false,
+    "limitation": "Pattern scan is a submission check, not proof against every secret format."
+  },
+  "recorded_final_test_counts": {
+    "tests": 83,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "recorded_real_model_responses": 17,
+  "verification_performed_this_turn": "Content/history scans, local link checks, recorded evidence hash and state re-evaluation only; no pytest rerun and no model API calls.",
+  "limitations": "Exact configured key and listed credential/contact/home-directory formats were checked. Pattern scans cannot exclude every unknown secret or personal-data format. Git authorship metadata still needs the owner's publication-scope review.",
+  "remote_configured": false,
+  "remote_push_performed": false,
+  "application_source_modified": false,
+  "human_contribution": "Pending candidate's truthful completion"
+}

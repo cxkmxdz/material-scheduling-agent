@@ -6,17 +6,18 @@
 
 ## 评审入口
 
+- 最终提交说明：[SUBMISSION.md](SUBMISSION.md)，GitHub 地址和人工贡献待候选人填写
+- 最终离线回归 83 项通过：[summary.json](examples/test-results-real-final/summary.json)
+- 已通过的真实三组对照：[comparison.json](examples/real/20261102-121118-525417/comparison.json)
 - 需求和全部验收点：[01-requirements.md](docs/01-requirements.md)
 - 设计和权限边界：[02-solution.md](docs/02-solution.md)
 - 实际结果和限制：[03-evaluation.md](docs/03-evaluation.md)
 - AI 使用记录：[04-ai-usage.md](docs/04-ai-usage.md)
 - 实施复盘：[05-retrospective.md](docs/05-retrospective.md)
 - 实际输出索引：[examples/mock/manifest.json](examples/mock/manifest.json)
-- 测试报告：[examples/test-results/summary.json](examples/test-results/summary.json)
-- 全新环境复测：[examples/test-results-clean/summary.json](examples/test-results-clean/summary.json)
+- 初次离线报告 73 项通过：[summary.json](examples/test-results/summary.json)
+- 初次全新环境复测 73 项通过：[summary.json](examples/test-results-clean/summary.json)
 - 真实验证状态：[examples/real/STATUS.md](examples/real/STATUS.md)
-- 已通过的真实对照：[comparison.json](examples/real/20261102-121118-525417/comparison.json)
-- 最终回归报告：[summary.json](examples/test-results-real-final/summary.json)
 
 ## 安装
 
@@ -77,12 +78,12 @@ CLI 退出码：草稿处理 `completed` 为 0；`needs_input/blocked/failed/inc
 
 ## 真实模型配置和对照
 
-复制 `.env.example` 为 `.env`，填写 `MODEL_API_KEY` 和支持 Chat Completions function calling 的 `MODEL_NAME`。`MODEL_BASE_URL` 默认为 `https://api.openai.com/v1`；兼容服务填写以 `/v1` 等版本前缀结尾的地址，不加 `/chat/completions`。`MODEL_TIMEOUT_SECONDS` 默认为 30。远端地址必须使用 HTTPS。不要将密钥写进输入 JSON 或提交 Git。
+首次配置时复制 `.env.example` 为 `.env`，已有配置应保留并在本地编辑。填写 `MODEL_API_KEY` 和支持 Chat Completions function calling 的 `MODEL_NAME`。`MODEL_BASE_URL` 默认为 `https://api.openai.com/v1`；兼容服务填写其给出的基础地址，可能包含 `/v1` 等版本前缀，不加 `/chat/completions`。`MODEL_TIMEOUT_SECONDS` 默认为 30。远端地址必须使用 HTTPS。不要将密钥写进输入 JSON 或提交 Git。
 
 服务地址必须与 key 的签发方匹配；模型名必须是该服务的实际 ID。DeepSeek 官方地址可填写 `https://api.deepseek.com`；项目对该官方端点默认显式禁用 thinking，以支持强制函数调用。也可设置 `MODEL_THINKING=disabled`；对其他端点，该可选字段留空时不会发送。参考 [DeepSeek 官方工具调用文档](https://api-docs.deepseek.com/guides/tool_calls/)。项目不自动选择模型或将失败切换为 Mock。本次实际通过模型为 deepseek-flash。
 
 ```powershell
-Copy-Item .env.example .env
+if (-not (Test-Path -LiteralPath .env)) { Copy-Item .env.example .env }
 # 在编辑器中填写 .env，不把真实密钥写进命令历史
 $runTag = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
 .venv\Scripts\python.exe -m scheduling_agent.cli run --mode real --input examples/inputs/normal.json --db "runtime/real-$runTag.sqlite" --output "runtime/real-$runTag.json" --trace "runtime/real-$runTag.jsonl"

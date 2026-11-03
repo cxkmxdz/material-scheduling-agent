@@ -13,7 +13,7 @@ AI 实际通过 uv 安装依赖并生成 uv.lock，调用 pytest 验证业务不
 ## 三种模式的区别
 
 1. Codex 辅助开发：指本次生成、修改及验证代码的过程，不等于项目运行时已连接模型。
-2. 项目 Mock：MockModel 为离线脚本，用于验证工具和运行器。示例均标为 mock。
+2. 项目 Mock：MockModel 为离线脚本，用于验证工具和运行器。examples/mock 中的离线示例标为 mock，examples/real 中的实际接口记录标为 real，彼此不替代。
 3. 项目真实模型：初次交付缺少凭据；2026-11-02 用户在本地填写配置，先出现鉴权失败，修正地址后出现 thinking 与 required 工具选择不兼容的 HTTP 400。AI 修正评估判据、补充 DeepSeek 兼容配置和响应元数据记录，再实际运行 deepseek-flash 完成三条件对照。旧失败证据及最终真实成功 Trace 全部保留。接口测试里的 MockTransport 仍是离线模拟。
 
 ## 候选人待核实补充
