@@ -40,4 +40,4 @@ CLI 读取 JSON，必填 request_id、material_ids、channel、requested_at、ti
 | A13 | 工具边界 | 拒绝伪造审核、缺失证据、擅自确认、发布、窗口外保存 |
 | A14 | 可复现交付 | 固定依赖、README、五份文档、测试和示例；不提交密钥或数据库 |
 
-A11 已于 2026-11-02 使用实际 deepseek-flash 完成同请求三组对照，证据见 03-evaluation.md；脚本模拟和假 HTTP 返回不作为 A11 证明。最终提交还需题号、可访问的 GitHub URL 和 commit SHA；本次授权不包括向远端推送。
+A11 已于 2026-11-02 使用实际 deepseek-flash 完成同请求三组对照，证据见 03-evaluation.md；脚本模拟和假 HTTP 返回不作为 A11 证明。提交包含题号、可访问的 GitHub URL 和完整 commit SHA，见 SUBMISSION.md。候选人后续已提供仓库地址，并明确授权提交和非强制推送，不覆盖远端已有历史。

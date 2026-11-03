@@ -6,7 +6,7 @@
 
 ## 评审入口
 
-- 最终提交说明：[SUBMISSION.md](SUBMISSION.md)，GitHub 地址和人工贡献待候选人填写
+- 最终提交说明：[SUBMISSION.md](SUBMISSION.md)，包含仓库地址与候选人自行填写的贡献记录
 - 最终离线回归 83 项通过：[summary.json](examples/test-results-real-final/summary.json)
 - 已通过的真实三组对照：[comparison.json](examples/real/20261102-121118-525417/comparison.json)
 - 需求和全部验收点：[01-requirements.md](docs/01-requirements.md)
@@ -106,4 +106,4 @@ $runTag = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
 
 `src/scheduling_agent/` 包含模型适配器、循环、工具、SQLite、Trace 和 CLI；`data/` 全是合成资料和演示规则，未接视频内容审核或真实平台。五份交付文档为 Markdown，便于与代码一起审阅。
 
-题号：第 1 题。GitHub URL：待候选人提供或创建。未推送远端；本地 commit SHA 用 `git rev-parse HEAD` 查看。候选人仍须核查 AI 使用记录、补充真实人工贡献；私有仓库需给评审账号读取权限。本次三组真实模型对照已经通过，不代表已完成远端提交或多模型稳定性验证。
+题号：第 1 题。GitHub URL：[cxkmxdz/material-scheduling-agent](https://github.com/cxkmxdz/material-scheduling-agent)。候选人已自行填写贡献记录，见提交说明和 AI 使用记录。最终版本以本地 `git rev-parse HEAD` 与远端 main 分支的完整 commit SHA 一致为准。仓库当前公开；如后续转为私有，需确保评审账号可读。本次三组真实模型对照已通过，验证范围仍限于本次模型和请求条件。
